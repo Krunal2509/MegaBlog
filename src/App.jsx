@@ -5,6 +5,9 @@ import './App.css'
 
 function App() {
 
+  console.log();
+  
+
   return (
     <>
         <h1>Blog App</h1>
