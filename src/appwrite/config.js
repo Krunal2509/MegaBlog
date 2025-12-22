@@ -13,8 +13,6 @@ export class Service{
 
         this.databases = new Database(this.client)
         this.bucket = new Storage(this.client)
-
-
      }
 
      //slug(ID) means random id like unique id
