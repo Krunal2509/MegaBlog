@@ -2,23 +2,24 @@ import conf from "../conf/conf";
 import {Client , ID , Database , Storage , Query} from "appwrite"
 
 export class Service{
+    
     client = new Client();
     databases;
     bucket; //storage
 
-     constructor(){
+    constructor(){
         this.client
             .setEndpoint(conf.appwriteUrl)
             .setProject(conf.appwriteProjectId)
 
         this.databases = new Database(this.client)
         this.bucket = new Storage(this.client)
-     }
+    }
 
      //slug(ID) means random id like unique id
 
      // in featuredImage we will pass fileid
-     async createPost({title , slug , content ,featuredImage ,status , userId}){
+    async createPost({title , slug , content ,featuredImage ,status , userId}){
         try {
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
@@ -35,9 +36,9 @@ export class Service{
         } catch (error) {
             throw error;
         }
-     }
+    }
 
-     async updatePost(slug , {title , content ,featuredImage ,status }){
+    async updatePost(slug , {title , content ,featuredImage ,status }){
         try {
             return await this.databases.updateDocument(
                 conf.appwriteDatabaseId,
@@ -53,9 +54,9 @@ export class Service{
         } catch (error) {
             throw error;
         }
-     }
+    }
      
-     async deletePost(slug ){
+    async deletePost(slug ){
          try {
              await this.databases.deleteDocument(
                  conf.appwriteDatabaseId,

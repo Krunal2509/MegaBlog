@@ -18,10 +18,10 @@ function Login() {
         setError("")
         try {
 
-            //session true means logged in
-
+            
             const session = await authService.login(data)
-
+            
+            //session true means logged in
             if(session){
                 const userData = await authService.getCurrentUser()
                 if(userData) dispatch(authLogin(userData))
@@ -68,6 +68,7 @@ function Login() {
                             placeholder="Enter Your Email"
                             {
                                 //the name(here it is email) is unique
+                                // Here the register is not sign up register it is form handling  sintax
                                 ...register("email" , {
                                     required:true,
                                     validate:{
