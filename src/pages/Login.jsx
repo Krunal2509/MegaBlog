@@ -1,12 +1,12 @@
 import React from "react";
-import {Login as LoginComponent} from "../../components/Login";
+import Login  from "../../components/Login";
 
-function Login() {
+function LoginC() {
     return ( 
         <div className="py-8">
-            <LoginComponent/>
+            <Login/>
         </div>
      );
 }
 
-export default Login;
+export default LoginC;

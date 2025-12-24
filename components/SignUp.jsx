@@ -94,9 +94,8 @@ function SignUp() {
                                 placeholder ="Enter Your Password"
                                 
                                 {
-                                    ...register("Password",{
-                                        required : true,
-    
+                                    ...register("password",{
+                                        required : true
                                     })
                                 }
                             />

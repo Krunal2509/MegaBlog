@@ -1,5 +1,5 @@
 import conf from '../conf/conf'
-import {Client , Account} from "appwrite"
+import {Client , Account, ID} from "appwrite"
 
 export class AuthService{
     
@@ -10,7 +10,7 @@ export class AuthService{
         this.client 
                 .setEndpoint(conf.appwriteUrl)
                 .setProject(conf.appwriteProjectId);
-        this.account = new Account(Client);
+        this.account = new Account(this.client);
     }    
 
     async createAccount({email , password , name})  {
@@ -46,10 +46,9 @@ export class AuthService{
             return await this.account.get();
                         
         } catch (error) {
-            console.log("Error : ", error);
+            throw null;
         }
         
-        return null;
     }
 
     async logout(){

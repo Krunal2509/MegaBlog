@@ -1,30 +1,30 @@
 import React ,{useState} from "react";
 import {Link , matchPath, useNavigate} from 'react-router'
 //auth login  or store login remember
-import {login as authLogin} from '../src/store/authSlice'
+
 import {Button , Input , Logo} from './index'
 import { useDispatch } from "react-redux";
 import authService from "../src/appwrite/auth";
 import {useForm} from 'react-hook-form'
+import {login} from '../src/store/authSlice'
 
 function Login() {
+    
     const navigate = useNavigate()
     const dispatch = useDispatch()
     //below is from docs of hook form
     const {register , handleSubmit} = useForm()
     const [error , setError] = useState("")
 
-    const login = async (data) => {
+    const submitlogin = async (data) => {
         setError("")
         try {
 
             
-            const session = await authService.login(data)
+            const session = await authService.loginAccount(data)
             
             //session true means logged in
             if(session){
-                const userData = await authService.getCurrentUser()
-                if(userData) dispatch(authLogin(userData))
                 navigate("/")
             }
 
@@ -34,9 +34,9 @@ function Login() {
     }
 
     return (  
-            <div className='flex items-center justify-center w-full'>
+            <div className='flex flex-col items-center justify-between  w-full'>
               
-                <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
+                <div className={` w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
                     <span className="inline-block w-full max-w-[100px]">
                         <Logo width="100%" />
                     </span>
@@ -58,7 +58,7 @@ function Login() {
                     error && <p className="text-red-600 mt-8 text-center">{error}</p>
                 }
 
-                <form onSubmit={handleSubmit(login)} className="mt-8">
+                <form onSubmit={handleSubmit(submitlogin)} className="mt-8">
 
                     <div className="space-y-5">
 
@@ -87,7 +87,7 @@ function Login() {
                             placeholder ="Enter Your Password"
                             
                             {
-                                ...register("Password",{
+                                ...register("password",{
                                     required : true,
 
                                 })

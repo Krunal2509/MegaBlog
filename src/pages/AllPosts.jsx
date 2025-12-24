@@ -3,7 +3,7 @@ import appwriteService from '../appwrite/config'
 import { PostForm ,PostCard } from "../../components";
 import { Container } from "postcss";
 
-function AllPost() {
+function AllPosts() {
     
     cosnt [posts , setPosts] =useState([])
     useEffect(() => {
@@ -32,4 +32,4 @@ function AllPost() {
       );
 }
 
-export default AllPost;
+export default AllPosts;

@@ -7,6 +7,7 @@ import authService from "./appwrite/auth";
 import {login , logout} from "./store/authSlice";
 import Header from "../components/Header/Header"
 import Footer from "../components/Footer/Footer"
+import { Outlet } from 'react-router';
 
 function App() {
 
@@ -14,8 +15,7 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() =>{
-    authService.getCurrentUser()
-    .then((userData) => {
+    authService.getCurrentUser().then((userData) => {
         if(userData){
           dispatch(login({userData}))
         }
@@ -24,16 +24,17 @@ function App() {
         }
       }
     )
+    .catch(() => (logout()))
     .finally(() => setLoading(false))
   },[])
 
 
   return !loading ? (
-    <div className='min-h-screen w-screen flex flex-wrap text-center bg-gray-400'>
-      <div className='w-full block'>
+    <div className='min-h-full w-screen flex flex-wrap text-center bg-gray-400'>
+      <div className='w-screen block '>
         <Header/>
           <main>
-            outlet
+            <Outlet/>
           </main>
         <Footer/>
       </div>
