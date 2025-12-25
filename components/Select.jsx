@@ -11,7 +11,7 @@ function Select({
 
     return (  
         <div className="w-full">
-            {label && <label htmlFor={id} className=""></label>}
+            {label && <label htmlFor={id} className="mb-1 block text-sm font-medium">{label}</label>}
 
             <select
                 {...props}
@@ -23,11 +23,11 @@ function Select({
                     {
                         // if options is there means length is greater than 0
                         options?.map(
-                            (option) => {
+                            (option) => (
                             <option key={option} value={option}>
                                 {option}
                             </option>
-                            }
+                            )
                         )
                     }
 

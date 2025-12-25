@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 function Header() {
 
     const authStatus = useSelector((state) => state.auth.status)
-    alert(authStatus)
+    // alert(authStatus)
 
     const navigate = useNavigate()
 
