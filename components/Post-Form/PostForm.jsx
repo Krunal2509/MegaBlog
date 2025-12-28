@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { Button, Input, Select, RTE } from "../index";
 import appwriteService from "../../src/appwrite/config";
@@ -25,42 +25,57 @@ function PostForm({ post }) {
   });
 
   const submit = async (data) => {
-    if (!data.content || data.content.trim() === "") {
-      alert("Content is required");
-      return;
-    }
+    try {
+      if (!data.content || data.content.trim() === "") {
+        alert("Content is required");
+        return;
+      }
 
-    if (post) {
-      const file = data.image?.[0]
-        ? await appwriteService.uploadFile(data.image[0])
-        : null;
+      if (post) {
+        const file = data.image?.[0]
+          ? await appwriteService.uploadFile(data.image[0])
+          : null;
 
-      if (file) await appwriteService.deleteFile(post.featuredImg);
+        if (file) await appwriteService.deleteFile(post.featuredImg);
 
-      const dbPost = await appwriteService.updatePost(post.$id, {
-        title: data.title,
-        content: data.content,
-        featuredImage: file ? file.$id : post.featuredImg,
-        status: data.status,
-      });
+        const dbPost = await appwriteService.updatePost(post.$id, {
+          title: data.title,
+          content: data.content,
+          featuredImage: file ? file.$id : post.featuredImg,
+          status: data.status,
+        });
 
-      if (dbPost) navigate(`/post/${dbPost.$id}`);
-    } else {
-      const file = data.image?.[0]
-        ? await appwriteService.uploadFile(data.image[0])
-        : null;
+        if (dbPost) navigate(`/post/${dbPost.$id}`);
+      } else {
+        // Check if userData exists before accessing $id
+        if (!userData || !userData.$id) {
+          alert("User not authenticated. Please login again.");
+          navigate("/login");
+          return;
+        }
 
-      if (!file) return;
+        const file = data.image?.[0]
+          ? await appwriteService.uploadFile(data.image[0])
+          : null;
 
-      const dbPost = await appwriteService.createPost({
-        title: data.title,
-        content: data.content,
-        featuredImage: file.$id,
-        status: data.status,
-        userId: userData.$id,
-      });
+        if (!file) {
+          alert("Featured image is required");
+          return;
+        }
 
-      if (dbPost) navigate(`/post/${dbPost.$id}`);
+        const dbPost = await appwriteService.createPost({
+          title: data.title,
+          content: data.content,
+          featuredImage: file.$id,
+          status: data.status,
+          userId: userData.$id,
+        });
+
+        if (dbPost) navigate(`/post/${dbPost.$id}`);
+      }
+    } catch (error) {
+      console.error("Error submitting post:", error);
+      alert(`Error: ${error.message || "Failed to submit post. Please try again."}`);
     }
   };
 
@@ -89,7 +104,7 @@ function PostForm({ post }) {
           {...register("image", { required: !post })}
         />
 
-        {post && (
+        {post && post.featuredImg && (
           <img
             src={appwriteService.getFilePreview(post.featuredImg)}
             className="rounded-lg mb-4"

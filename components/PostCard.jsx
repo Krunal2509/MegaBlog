@@ -1,17 +1,19 @@
 import React from "react";
 import appwriteService from '../src/appwrite/config'
-import {Link} from 'react-dom'
+import {Link} from 'react-router'
 
 //here id has $ which is appwrite sintax
 
-function PostCard({$id , title , featuredImage}) {
+function PostCard({$id , title , featuredImg}) {
     return (
         <Link to={`/post/${$id}`}>
             <div className='w-full bg-gray-100 rounded-xl p-4'>
                 
                 <div className='w-full justify-center mb-4'>
-                    <img src={appwriteService.getFilePreview(featuredImage)} alt={title}
-                    className='rounded-xl' />
+                    {featuredImg && (
+                        <img src={appwriteService.getFilePreview(featuredImg)} alt={title}
+                        className='rounded-xl' />
+                    )}
 
                 </div>
 

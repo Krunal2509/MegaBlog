@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 
 export default function Post() {
     const [post, setPost] = useState(null);
+    const [imageError, setImageError] = useState(false);
     const { slug } = useParams();
     const navigate = useNavigate();
 
@@ -17,7 +18,10 @@ export default function Post() {
     useEffect(() => {
         if (slug) {
             appwriteService.getPost(slug).then((post) => {
-                if (post) setPost(post);
+                if (post) {
+                    setPost(post);
+                    setImageError(false);
+                }
                 else navigate("/");
             });
         } else navigate("/");
@@ -26,7 +30,9 @@ export default function Post() {
     const deletePost = () => {
         appwriteService.deletePost(post.$id).then((status) => {
             if (status) {
-                appwriteService.deleteFile(post.featuredImage);
+                if (post.featuredImg) {
+                    appwriteService.deleteFile(post.featuredImg);
+                }
                 navigate("/");
             }
         });
@@ -36,11 +42,26 @@ export default function Post() {
         <div className="py-8">
             <Container>
                 <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
-                    <img
-                        src={appwriteService.getFilePreview(post.featuredImage)}
-                        alt={post.title}
-                        className="rounded-xl"
-                    />
+                    {post.featuredImg && (
+                        imageError ? (
+                            <div className="w-full h-64 flex items-center justify-center bg-gray-200 rounded-xl">
+                                <p className="text-gray-500">Image failed to load</p>
+                            </div>
+                        ) : (
+                            <img
+                                src={appwriteService.getFilePreview(post.featuredImg)}
+                                alt={post.title}
+                                className="rounded-xl w-full h-auto max-h-[600px] object-contain"
+                                onError={() => {
+                                    console.error("Image failed to load. FileId:", post.featuredImg);
+                                    setImageError(true);
+                                }}
+                                onLoad={() => {
+                                    setImageError(false);
+                                }}
+                            />
+                        )
+                    )}
 
                     {isAuthor && (
                         <div className="absolute right-6 top-6">
@@ -59,7 +80,7 @@ export default function Post() {
                     <h1 className="text-2xl font-bold">{post.title}</h1>
                 </div>
                 <div className="browser-css">
-                    {parse(post.content)}
+                    {post.Content && parse(post.Content)}
                     </div>
             </Container>
         </div>

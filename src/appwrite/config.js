@@ -111,7 +111,13 @@ export class Service {
   }
 
   getFilePreview(fileId) {
-    return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
+    if (!fileId) return null;
+    try {
+      return this.bucket.getFileView(conf.appwriteBucketId, fileId);
+    } catch (error) {
+      console.error("Error getting file preview:", error);
+      return null;
+    }
   }
 }
 
