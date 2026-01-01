@@ -25,6 +25,9 @@ function Login() {
             
             //session true means logged in
             if(session){
+                const userData = await authService.getCurrentUser()
+                // here the dispatch refresh the page after successfully login
+                dispatch(login({userData}))
                 navigate("/")
             }
 
@@ -34,17 +37,20 @@ function Login() {
     }
 
     return (  
-            <div className='flex flex-col items-center justify-between  w-full'>
+            <div className='flex items-center justify-center  '>
               
-                <div className={` w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
-                    <span className="inline-block w-full max-w-[100px]">
+              <div className="mx-auto w-full max-w-lg bg-gray-500 rounded-xl p-10 border border-black/10">
+
+                
+                <div className={` w-full max-w-lg  rounded-xl p-5 `}>
+                    <span className="inline-block w-full max-w-[200px]">
                         <Logo width="100%" />
                     </span>
                 </div>
 
                 <h2 className="text-center text-2xl font-bold leading-tight">Sign in to your account</h2>
 
-                 <p className="mt-2 text-center text-base text-black/60">
+                 <p className="my-5 text-center text-base text-black/60">
                     Don&apos;t have any account?&nbsp;
                     <Link
                         to="/signup"
@@ -102,6 +108,8 @@ function Login() {
                     
 
                 </form>
+
+              </div>
 
             </div>
 
