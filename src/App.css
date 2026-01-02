@@ -1,1 +1,17 @@
 @import "tailwindcss";
+
+.swiper-wrapper {
+  display: flex !important;
+}
+
+.swiper-scrollbar {
+    margin-top: 30px;
+  height: 10px;
+  background: rgba(0, 0, 0, 0.607);
+  border-radius: 10px;
+}
+
+.swiper-scrollbar-drag {
+  background: #2563eb; /* blue */
+  border-radius: 10px;
+}

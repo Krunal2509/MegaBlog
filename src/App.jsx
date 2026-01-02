@@ -11,6 +11,8 @@ import { Outlet } from 'react-router';
 
 function App() {
 
+  
+
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
 
@@ -30,7 +32,7 @@ function App() {
 
 
   return !loading ? (
-    <div className='min-h-screen w-screen flex flex-wrap text-center bg-gray-400'>
+    <div className='min-h-screen w-screen flex flex-wrap text-center bg-black/30'>
       <div className='relative w-screen block'>
         <Header />
         <main>
