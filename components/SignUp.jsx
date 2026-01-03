@@ -35,7 +35,7 @@ function SignUp() {
 
     return (
         <div className="flex items-center justify-center">
-             <div className={`mx-auto w-full max-w-lg bg-gray-500 rounded-xl p-10 border border-black/10`}>
+             <div className={`mx-auto w-full max-w-lg  rounded-xl p-10 border bg-form`}>
                     
                     <div className="mb-2 flex justify-center p-5">
                         <span className="inline-block w-full max-w-[200px]">

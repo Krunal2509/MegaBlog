@@ -1,17 +1,18 @@
 import React from "react";
 
+
 // children means text 
 function Button({
     children ,
     type = "button" ,
-    bgColor = "bg-blue-500" ,
+    bgColor = "bg-btn" ,
     textColor = "text-white" ,
     className ="",
     ...props
     // this above className and props because 
 }) {
     return (  
-        <button className={`px-4 py-2 rounded-lg  ${textColor} ${bgColor}   ${className} `} {...props}    >  
+        <button className={`px-4 py-2 rounded-lg  ${textColor} ${bgColor}   ${className} `} {...props}   >  
             {children}
         </button>
     );

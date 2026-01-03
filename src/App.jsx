@@ -32,7 +32,7 @@ function App() {
 
 
   return !loading ? (
-    <div className='min-h-screen w-screen flex flex-wrap text-center bg-black/30'>
+    <div className='min-h-screen w-screen flex flex-wrap text-center bg-secondary'>
       <div className='relative w-screen block'>
         <Header />
         <main>

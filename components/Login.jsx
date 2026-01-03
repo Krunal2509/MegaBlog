@@ -39,7 +39,7 @@ function Login() {
     return (  
             <div className='flex items-center justify-center  '>
               
-              <div className="mx-auto w-full max-w-lg bg-gray-500 rounded-xl p-10 border border-black/10">
+              <div className="mx-auto w-full max-w-lg border-2  rounded-xl p-10 bg-form" >
 
                 
                 <div className={` w-full max-w-lg  rounded-xl p-5 `}>
@@ -95,7 +95,6 @@ function Login() {
                             {
                                 ...register("password",{
                                     required : true,
-
                                 })
                             }
                         />

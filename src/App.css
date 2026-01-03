@@ -1,5 +1,31 @@
 @import "tailwindcss";
 
+:root {
+  --color-primary: 84 6.5% 45.3 ; 
+  --color-secondary: 0 0 0;
+}
+
+@layer utilities {
+  /* green background */
+  .bg-primary {
+    background-color: hsl(var(--color-primary)/1);
+  }
+  /* cream background */
+  .bg-secondary {
+    background-color: rgb(var(--color-secondary) / 0.15);
+  }
+
+  .bg-form{
+    background-color: var(--color-white);
+  }
+
+  .bg-btn{
+    background-color:hsl(var(--color-primary)) ;
+  }
+}
+
+
+
 .swiper-wrapper {
   display: flex !important;
 }
@@ -11,7 +37,30 @@
   border-radius: 10px;
 }
 
-.swiper-scrollbar-drag {
-  background: #2563eb; /* blue */
-  border-radius: 10px;
+.swiper-pagination-bullet {
+  width: 15px;
+  height: 15px;
+  background-color: rgb(255, 255, 255) !important;
+  opacity: 1 !important;
+  border-radius: 99999px;
+  transition: all 0.3s ease;
 }
+
+.swiper-pagination-bullet-active {
+  background-color: #000000 !important; /* lime-500 */
+  width: 22px;
+}
+
+.swiper-pagination {
+  position: relative !important;
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+  gap: 20px;
+}
+
+
+
+
